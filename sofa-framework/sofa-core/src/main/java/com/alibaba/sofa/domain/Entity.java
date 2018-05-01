@@ -17,21 +17,29 @@ public abstract class Entity  {
     /*
      * Entity 包含所有表都有的6个基础字段.
      */
-	@Getter @Setter
+	@Getter
+	@Setter
     protected String id;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected Date gmtCreate;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected Date gmtModified;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected String creator;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected String modifier;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected String isDeleted;
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected String tenantId;//租户ID
-	@Getter @Setter
+	@Getter
+	@Setter
 	protected String bizCode;//业务代码
 
 	/*

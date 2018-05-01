@@ -5,7 +5,7 @@ package com.alibaba.sofa.dto;
  * 
  * @author fulan.zjf 2017年10月21日 下午8:53:17
  */
-public class Response extends DTO{
+public class Response extends DTO {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,31 +19,25 @@ public class Response extends DTO{
         return isSuccess;
     }
 
-    
     public void setSuccess(boolean isSuccess) {
         this.isSuccess = isSuccess;
     }
-
     
     public String getErrCode() {
         return errCode;
     }
 
-    
     public void setErrCode(String errCode) {
         this.errCode = errCode;
     }
 
-    
     public String getErrMessage() {
         return errMessage;
     }
 
-    
     public void setErrMessage(String errMessage) {
         this.errMessage = errMessage;
     }
-
 
     @Override
     public String toString() {

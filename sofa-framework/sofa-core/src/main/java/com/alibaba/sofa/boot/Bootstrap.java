@@ -27,14 +27,13 @@ import lombok.Setter;
  * @author fulan.zjf 2017-11-04
  */
 public class Bootstrap {
+
     @Getter
     @Setter
     private List<String> packages;
     private ClassPathScanHandler handler;
-
     @Autowired
     private RegisterFactory registerFactory;
-
 
     public void init() {
         Set<Class<?>> classSet = scanConfiguredPackages();
@@ -51,7 +50,6 @@ public class Bootstrap {
                 register.doRegistration(targetClz);
             }
         }
-
     }
 
     /**
@@ -60,8 +58,9 @@ public class Bootstrap {
      * @return
      */
     private Set<Class<?>> scanConfiguredPackages() {
-        if (packages == null) throw new InfraException("Command packages is not specified");
-
+        if (packages == null) {
+            throw new InfraException("Command packages is not specified");
+        }
         String[] pkgs = new String[packages.size()];
         handler = new ClassPathScanHandler(packages.toArray(pkgs));
 

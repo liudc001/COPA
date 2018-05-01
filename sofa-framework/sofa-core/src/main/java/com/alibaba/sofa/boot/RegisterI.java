@@ -7,12 +7,16 @@
  */
 package com.alibaba.sofa.boot;
 
-import java.lang.annotation.Annotation;
-
 /**
  * Register Interface 
  * @author fulan.zjf 2017-11-04
  */
 public interface RegisterI {
+
+    /**
+     * 注册组件
+     * @param targetClz
+     */
     public void doRegistration(Class<?> targetClz);
+
 }

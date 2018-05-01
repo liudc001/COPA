@@ -14,13 +14,17 @@ import java.util.Map;
  * @author shawnzhan.zxy
  * @date 2017/11/20
  */
-@SuppressWarnings("rawtypes")
 @Component
+@SuppressWarnings("rawtypes")
 public class EventHub {
+
     @Getter
     @Setter
     private Map<Class, EventHandlerI> eventRepository = new HashMap<>();
-    
+
+    /**
+     * 请求参数，返回参数对象映射
+     */
     @Getter
     private Map<Class, Class> responseRepository = new HashMap<>();
     
@@ -31,6 +35,9 @@ public class EventHub {
         }
         return eventHandlerI;
     }
+    private EventHandlerI findHandler(Class<? extends Event> eventClass){
+        return eventRepository.get(eventClass);
+    }
 
     /**
      * 注册事件
@@ -39,13 +46,6 @@ public class EventHub {
      */
     public void register(Class<? extends Event> eventClz, EventHandlerI executor){
         eventRepository.put(eventClz, executor);
-    }
-
-    private EventHandlerI findHandler(Class<? extends Event> eventClass){
-        EventHandlerI eventHandlerI = null;
-        Class cls = eventClass;
-        eventHandlerI = eventRepository.get(cls);
-        return eventHandlerI;
     }
 
 }

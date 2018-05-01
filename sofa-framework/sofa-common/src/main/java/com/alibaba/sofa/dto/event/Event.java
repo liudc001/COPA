@@ -6,9 +6,12 @@ import com.alibaba.sofa.dto.DTO;
  * @author shawnzhan.zxy
  * @date 2017/11/20
  */
-public class Event extends DTO{
+public class Event extends DTO {
+
     private static final long serialVersionUID = 5740150436439366761L;
+
     protected String eventId;
+
     protected String eventType;
 
     /**

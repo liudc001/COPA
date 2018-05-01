@@ -6,7 +6,7 @@ package com.alibaba.sofa.dto;
  *
  * @author fulan.zjf 2017年10月27日 下午12:28:24
  */
-public abstract class Command extends DTO{
+public abstract class Command extends DTO {
 
     private static final long serialVersionUID = 1L;
 

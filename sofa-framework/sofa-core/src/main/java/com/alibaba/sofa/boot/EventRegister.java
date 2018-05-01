@@ -26,8 +26,8 @@ import java.lang.reflect.Method;
  * @author shawnzhan.zxy
  * @date 2017/11/20
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 @Component
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class EventRegister implements RegisterI, ApplicationContextAware {
 
     @Autowired
@@ -51,12 +51,13 @@ public class EventRegister implements RegisterI, ApplicationContextAware {
              */
             if (CoreConstant.EXE_METHOD.equals(method.getName()) && exeParams.length == 1
                 && Event.class.isAssignableFrom(exeParams[0]) && !method.isBridge()) {
+                // 执行器execute方法中的 参数 与 返回值对象 关系映射
                 eventHub.getResponseRepository().put(exeParams[0], method.getReturnType());
                 return (Class<? extends Event>) exeParams[0];
             }
         }
-        throw new InfraException("Event param in " + eventExecutorClz + " " + CoreConstant.EXE_METHOD
-                                 + "() is not detected");
+        throw new InfraException("Event param in " + eventExecutorClz
+                + " " + CoreConstant.EXE_METHOD + "() is not detected");
     }
 
     @Override

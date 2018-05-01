@@ -18,19 +18,21 @@ import org.springframework.stereotype.Component;
  * @date 2017/11/20
  */
 @Component
-public class EventBus implements EventBusI{
+public class EventBus implements EventBusI {
+
     Logger logger = LoggerFactory.getLogger(EventBus.class);
 
     @Autowired
     private EventHub eventHub;
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public Response fire(Event event) {
         Response response = null;
         try {
             response = eventHub.getEventHandler(event.getClass()).execute(event);
-        }catch (Exception exception) {
+        }
+        catch (Exception exception) {
             response = handleException(event, response, exception);
         }
         return response;
@@ -40,7 +42,8 @@ public class EventBus implements EventBusI{
         Class responseClz = eventHub.getResponseRepository().get(cmd.getClass());
         try {
             response = (Response) responseClz.newInstance();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new InfraException(e.getMessage());
         }

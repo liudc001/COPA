@@ -3,7 +3,6 @@ package com.alibaba.sofa.event;
 import com.alibaba.sofa.dto.event.Event;
 import com.alibaba.sofa.dto.Response;
 
-
 /**
  * EventBus interface
  * @author shawnzhan.zxy
@@ -17,5 +16,5 @@ public interface EventBusI {
      * @param event
      * @return Response
      */
-    public Response fire(Event event);
+    Response fire(Event event);
 }

@@ -5,7 +5,6 @@ package com.alibaba.sofa.dto;
  * <p/>
  * Created by Danny.Lee on 2017/11/1.
  */
-
 public class SingleResponse<T> extends Response {
 
     private T data;

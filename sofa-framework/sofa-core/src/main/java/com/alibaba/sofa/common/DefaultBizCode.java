@@ -13,7 +13,7 @@ package com.alibaba.sofa.common;
  */
 public class DefaultBizCode {
 
-    public final static String DEFAULT_BIZ_CODE = "$defaultBizCode$";
+    public final static String DEFAULT_BIZ_CODE = CoreConstant.DEFAULT_BIZ_CODE;
 
 
 }

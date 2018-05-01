@@ -1,6 +1,6 @@
 package com.alibaba.sofa.logger;
 
-public class SysLogger implements Logger{
+public class SysLogger implements Logger {
 
     public static SysLogger singleton = new SysLogger();
 
