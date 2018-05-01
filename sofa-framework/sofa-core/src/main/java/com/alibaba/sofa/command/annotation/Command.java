@@ -1,4 +1,4 @@
-package com.alibaba.sofa.command;
+package com.alibaba.sofa.command.annotation;
 
 import org.springframework.stereotype.Component;
 

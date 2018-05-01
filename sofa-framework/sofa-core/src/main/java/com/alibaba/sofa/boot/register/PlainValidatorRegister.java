@@ -1,5 +1,6 @@
-package com.alibaba.sofa.boot;
+package com.alibaba.sofa.boot.register;
 
+import com.alibaba.sofa.boot.RegisterI;
 import com.alibaba.sofa.validator.PlainValidatorRepository;
 import com.alibaba.sofa.validator.ValidatorI;
 import org.springframework.beans.BeansException;

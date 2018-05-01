@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import org.reflections.Configuration;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
@@ -74,10 +75,9 @@ public class ClassPathScanHandler {
      * @param packages packages.
      */
     public ClassPathScanHandler(String... packages) {
-        this.reflections = new Reflections(new ConfigurationBuilder().
-                forPackages(packages).
-                addScanners(new TypeAnnotationsScanner(), new SubTypesScanner())//.addUrls(urlList)
-        );
+        Configuration configuration = new ConfigurationBuilder().forPackages(packages).
+                addScanners(new TypeAnnotationsScanner(), new SubTypesScanner());//.addUrls(urlList);
+        this.reflections = new Reflections(configuration);
     }
 
     /**
@@ -89,12 +89,10 @@ public class ClassPathScanHandler {
      * @param checkInOrEx  whether exclude the rule checking.
      * @param classFilters the customized the classes to be filtered.
      */
-    public ClassPathScanHandler(Boolean excludeInner, Boolean checkInOrEx,
-                                List<String> classFilters) {
+    public ClassPathScanHandler(Boolean excludeInner, Boolean checkInOrEx, List<String> classFilters) {
         this.excludeInner = excludeInner;
         this.checkInOrEx = checkInOrEx;
         this.classFilters = classFilters;
-
     }
 
     /**
@@ -127,8 +125,9 @@ public class ClassPathScanHandler {
      * @return Set of the found classes.
      */
     public Set<Class<?>> getPackageAllClasses(String basePackage, boolean recursive) {
-        if (basePackage == null)
+        if (basePackage == null) {
             return new HashSet<>();
+        }
         Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
         String packageName = basePackage;
         if (packageName.endsWith(".")) {
@@ -146,12 +145,14 @@ public class ClassPathScanHandler {
                     LOGGER.debug("扫描file类型的class文件....");
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
                     doScanPackageClassesByFile(classes, packageName, filePath, recursive);
-                } else if ("jar".equals(protocol)) {
+                }
+                else if ("jar".equals(protocol)) {
                     LOGGER.debug("扫描jar文件中的类....");
                     doScanPackageClassesByJar(packageName, url, recursive, classes);
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             LOGGER.error("IOException error:");
         }
 
@@ -195,15 +196,19 @@ public class ClassPathScanHandler {
                     String className = name.replace('/', '.');
                     className = className.substring(0, className.length() - 6);
                     try {
-                        classes.add(Thread.currentThread().getContextClassLoader().loadClass(className));
-                    } catch (ClassNotFoundException e) {
+                        Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
+                        classes.add(clazz);
+                    }
+                    catch (ClassNotFoundException e) {
                         LOGGER.error("Class.forName error:URL is ===>" + url.getPath());
                     }
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             LOGGER.error("IOException error:URL is ===>" + url.getPath());
-        } catch (Throwable e) {
+        }
+        catch (Throwable e) {
             LOGGER.error("ScanPackageClassesByJar error:URL is ===>" + url.getPath());
         }
     }
@@ -216,8 +221,7 @@ public class ClassPathScanHandler {
      * @param recursive   whether to search recursive.
      * @param classes     set of the found classes.
      */
-    private void doScanPackageClassesByFile(
-            Set<Class<?>> classes, String packageName, String packagePath, final boolean recursive) {
+    private void doScanPackageClassesByFile(Set<Class<?>> classes, String packageName, String packagePath, final boolean recursive) {
         File dir = new File(packagePath);
         if (!dir.exists() || !dir.isDirectory()) {
             return;
@@ -232,15 +236,18 @@ public class ClassPathScanHandler {
         if (null == files || files.length == 0) {
             return;
         }
+
         for (File file : files) {
             if (file.isDirectory()) {
                 doScanPackageClassesByFile(classes, packageName + "." + file.getName(), file.getAbsolutePath(), recursive);
-            } else {
-                String className = file.getName().substring(0,
-                        file.getName().length() - CLASS_EXTENSION_NAME.length());
+            }
+            else {
                 try {
-                    classes.add(Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
-                } catch (ClassNotFoundException e) {
+                    String className = file.getName().substring(0, file.getName().length() - CLASS_EXTENSION_NAME.length());
+                    Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className);
+                    classes.add(clazz);
+                }
+                catch (ClassNotFoundException e) {
                     LOGGER.error("IOException error:");
                 }
             }
@@ -279,11 +286,13 @@ public class ClassPathScanHandler {
         if (null == this.classFilters || this.classFilters.isEmpty()) {
             return true;
         }
-        String tmpName = className.substring(0, className.length() - 6);
+        String tmpName = className.substring(0, className.length() - CLASS_EXTENSION_NAME.length());
         boolean flag = false;
         for (String str : classFilters) {
             flag = matchInnerClassname(tmpName, str);
-            if (flag) break;
+            if (flag){
+                break;
+            }
         }
         return (checkInOrEx && flag) || (!checkInOrEx && !flag);
     }

@@ -5,7 +5,7 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with Alibaba.com.
  */
-package com.alibaba.sofa.extension;
+package com.alibaba.sofa.extension.annotation;
 
 import com.alibaba.sofa.common.CoreConstant;
 import org.springframework.stereotype.Component;

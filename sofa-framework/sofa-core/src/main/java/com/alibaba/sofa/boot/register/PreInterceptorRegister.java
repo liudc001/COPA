@@ -5,8 +5,9 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with Alibaba.com.
  */
-package com.alibaba.sofa.boot;
+package com.alibaba.sofa.boot.register;
 
+import com.alibaba.sofa.boot.RegisterI;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -15,15 +16,15 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.sofa.command.CommandHub;
 import com.alibaba.sofa.command.CommandInterceptorI;
-import com.alibaba.sofa.command.PostInterceptor;
+import com.alibaba.sofa.command.annotation.PreInterceptor;
 import com.alibaba.sofa.dto.Command;
 
 /**
- * PostInterceptorRegister 
+ * PreInterceptorRegister 
  * @author fulan.zjf 2017-11-04
  */
 @Component
-public class PostInterceptorRegister implements RegisterI, ApplicationContextAware{
+public class PreInterceptorRegister implements RegisterI, ApplicationContextAware{
 
     @Autowired
     private CommandHub commandHub;
@@ -33,18 +34,18 @@ public class PostInterceptorRegister implements RegisterI, ApplicationContextAwa
     @Override
     public void doRegistration(Class<?> targetClz) {
         CommandInterceptorI commandInterceptor = (CommandInterceptorI) applicationContext.getBean(targetClz);
-        PostInterceptor postInterceptorAnn = targetClz.getDeclaredAnnotation(PostInterceptor.class);
-        Class<? extends Command>[] supportClasses = postInterceptorAnn.commands();
+        PreInterceptor preInterceptorAnn = targetClz.getDeclaredAnnotation(PreInterceptor.class);
+        Class<? extends Command>[] supportClasses = preInterceptorAnn.commands();
         registerInterceptor(supportClasses, commandInterceptor);        
     }
 
     private void registerInterceptor(Class<? extends Command>[] supportClasses, CommandInterceptorI commandInterceptor) {
         if (null == supportClasses || supportClasses.length == 0) {
-            commandHub.getGlobalPostInterceptors().add(commandInterceptor);
+            commandHub.getGlobalPreInterceptors().add(commandInterceptor);
             return;
         } 
         for (Class<? extends Command> supportClass : supportClasses) {
-            commandHub.getPostInterceptors().put(supportClass, commandInterceptor);
+            commandHub.getPreInterceptors().put(supportClass, commandInterceptor);
         }
     }    
 

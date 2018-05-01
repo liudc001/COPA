@@ -5,11 +5,12 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with Alibaba.com.
  */
-package com.alibaba.sofa.boot;
+package com.alibaba.sofa.boot.register;
 
+import com.alibaba.sofa.boot.RegisterI;
 import com.alibaba.sofa.common.CoreConstant;
 import com.alibaba.sofa.exception.InfraException;
-import com.alibaba.sofa.extension.Extension;
+import com.alibaba.sofa.extension.annotation.Extension;
 import com.alibaba.sofa.extension.ExtensionCoordinate;
 import com.alibaba.sofa.extension.ExtensionPointI;
 import com.alibaba.sofa.extension.ExtensionRepository;

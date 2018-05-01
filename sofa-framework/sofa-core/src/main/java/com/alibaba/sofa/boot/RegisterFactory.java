@@ -7,13 +7,14 @@
  */
 package com.alibaba.sofa.boot;
 
-import com.alibaba.sofa.command.Command;
-import com.alibaba.sofa.command.PostInterceptor;
-import com.alibaba.sofa.command.PreInterceptor;
+import com.alibaba.sofa.boot.register.*;
+import com.alibaba.sofa.command.annotation.Command;
+import com.alibaba.sofa.command.annotation.PostInterceptor;
+import com.alibaba.sofa.command.annotation.PreInterceptor;
 import com.alibaba.sofa.common.CoreConstant;
-import com.alibaba.sofa.event.EventHandler;
+import com.alibaba.sofa.event.annotation.EventHandler;
 import com.alibaba.sofa.exception.InfraException;
-import com.alibaba.sofa.extension.Extension;
+import com.alibaba.sofa.extension.annotation.Extension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,15 +31,15 @@ public class RegisterFactory{
     @Autowired
     private PostInterceptorRegister postInterceptorRegister;
     @Autowired
-    private CommandRegister commandRegister;
-    @Autowired
-    private ExtensionRegister extensionRegister;
-    @Autowired
-    private EventRegister eventRegister;
-    @Autowired
     private PlainValidatorRegister plainValidatorRegister;
     @Autowired
     private PlainRuleRegister plainRuleRegister;
+    @Autowired
+    private ExtensionRegister extensionRegister;
+    @Autowired
+    private CommandRegister commandRegister;
+    @Autowired
+    private EventRegister eventRegister;
 
     public RegisterI getRegister(Class<?> targetClz) {
         PreInterceptor preInterceptorAnn = targetClz.getDeclaredAnnotation(PreInterceptor.class);

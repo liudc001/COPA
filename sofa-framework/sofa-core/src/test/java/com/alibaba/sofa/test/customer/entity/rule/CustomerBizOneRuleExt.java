@@ -1,7 +1,7 @@
 package com.alibaba.sofa.test.customer.entity.rule;
 
 import com.alibaba.sofa.exception.BizException;
-import com.alibaba.sofa.extension.Extension;
+import com.alibaba.sofa.extension.annotation.Extension;
 import com.alibaba.sofa.test.customer.Constants;
 import com.alibaba.sofa.test.customer.entity.CustomerEntity;
 import com.alibaba.sofa.test.customer.entity.SourceType;

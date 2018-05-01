@@ -1,6 +1,6 @@
 package com.alibaba.sofa.test.customer;
 
-import com.alibaba.sofa.command.Command;
+import com.alibaba.sofa.command.annotation.Command;
 import com.alibaba.sofa.command.CommandExecutorI;
 import com.alibaba.sofa.dto.Response;
 import com.alibaba.sofa.extension.ExtensionExecutor;

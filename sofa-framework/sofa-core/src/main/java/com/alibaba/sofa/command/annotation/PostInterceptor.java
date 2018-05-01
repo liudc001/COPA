@@ -1,4 +1,4 @@
-package com.alibaba.sofa.command;
+package com.alibaba.sofa.command.annotation;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Component
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PreInterceptor {
+public @interface PostInterceptor {
 
     Class<? extends com.alibaba.sofa.dto.Command>[] commands() default {};
 

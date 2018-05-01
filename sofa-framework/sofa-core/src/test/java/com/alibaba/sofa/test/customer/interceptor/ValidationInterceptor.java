@@ -1,7 +1,7 @@
 package com.alibaba.sofa.test.customer.interceptor;
 
 import com.alibaba.sofa.command.CommandInterceptorI;
-import com.alibaba.sofa.command.PreInterceptor;
+import com.alibaba.sofa.command.annotation.PreInterceptor;
 import com.alibaba.sofa.dto.Command;
 import com.alibaba.sofa.exception.ParamException;
 import com.alibaba.sofa.validator.SofaMessageInterpolator;

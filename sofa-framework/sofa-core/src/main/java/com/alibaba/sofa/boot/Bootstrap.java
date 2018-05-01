@@ -35,6 +35,9 @@ public class Bootstrap {
     @Autowired
     private RegisterFactory registerFactory;
 
+    /**
+     * 初始化加载启动方法
+     */
     public void init() {
         Set<Class<?>> classSet = scanConfiguredPackages();
         registerBeans(classSet);

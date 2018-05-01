@@ -5,8 +5,9 @@
  * use it only in accordance with the terms of the license agreement you entered
  * into with Alibaba.com.
  */
-package com.alibaba.sofa.boot;
+package com.alibaba.sofa.boot.register;
 
+import com.alibaba.sofa.boot.RegisterI;
 import com.alibaba.sofa.command.CommandExecutorI;
 import com.alibaba.sofa.command.CommandHub;
 import com.alibaba.sofa.command.CommandInterceptorI;

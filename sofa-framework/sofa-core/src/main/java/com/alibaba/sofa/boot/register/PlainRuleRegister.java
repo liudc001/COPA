@@ -1,5 +1,6 @@
-package com.alibaba.sofa.boot;
+package com.alibaba.sofa.boot.register;
 
+import com.alibaba.sofa.boot.RegisterI;
 import com.alibaba.sofa.rule.PlainRuleRepository;
 import com.alibaba.sofa.rule.RuleI;
 import org.springframework.beans.BeansException;

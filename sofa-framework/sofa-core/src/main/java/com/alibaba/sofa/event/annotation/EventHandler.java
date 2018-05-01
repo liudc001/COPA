@@ -1,4 +1,4 @@
-package com.alibaba.sofa.event;
+package com.alibaba.sofa.event.annotation;
 
 import org.springframework.stereotype.Component;
 
