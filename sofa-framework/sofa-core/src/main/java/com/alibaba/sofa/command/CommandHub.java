@@ -17,16 +17,15 @@ import java.util.Map;
  * 
  * @author fulan.zjf 2017-10-24
  */
-@SuppressWarnings("rawtypes")
 @Component
 public class CommandHub{
 
     @Getter
     @Setter
-    private ListMultimap<Class/*CommandClz*/, CommandInterceptorI> preInterceptors = LinkedListMultimap.create();
+    private ListMultimap<Class<?>/*CommandClz*/, CommandInterceptorI> preInterceptors = LinkedListMultimap.create();
     @Getter
     @Setter
-    private ListMultimap<Class/*CommandClz*/, CommandInterceptorI> postInterceptors = LinkedListMultimap.create();
+    private ListMultimap<Class<?>/*CommandClz*/, CommandInterceptorI> postInterceptors = LinkedListMultimap.create();
     @Getter
     @Setter
     private List<CommandInterceptorI> globalPreInterceptors = new ArrayList<>(); //全局通用的PreInterceptors
@@ -35,12 +34,11 @@ public class CommandHub{
     private List<CommandInterceptorI> globalPostInterceptors = new ArrayList<>(); //全局通用的PostInterceptors
     @Getter
     @Setter
-    private Map<Class/*CommandClz*/, CommandInvocation> commandRepository = new HashMap<>();
-    
+    private Map<Class<?>/*CommandClz*/, CommandInvocation> commandRepository = new HashMap<>();
     @Getter
-    private Map<Class/*CommandClz*/, Class/*ResponseClz*/> responseRepository = new HashMap<>();
+    private Map<Class<?>/*CommandClz*/, Class<?>/*ResponseClz*/> responseRepository = new HashMap<>();
     
-    public CommandInvocation getCommandInvocation(Class cmdClass) {
+    public CommandInvocation getCommandInvocation(Class<?> cmdClass) {
         CommandInvocation commandInvocation = commandRepository.get(cmdClass);
         if (commandRepository.get(cmdClass) == null)
             throw new InfraException(cmdClass + " is not registered in CommandHub, please register first");

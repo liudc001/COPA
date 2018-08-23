@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
  * @author fulan.zjf 2017-11-05
  */
 @Component
-public class ExtensionExecutor extends ComponentExecutor{
+public class ExtensionExecutor extends ComponentExecutor {
 
     private Logger logger = LoggerFactory.getLogger(ExtensionExecutor.class);
 

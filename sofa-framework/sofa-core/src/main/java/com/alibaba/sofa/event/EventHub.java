@@ -20,15 +20,15 @@ public class EventHub {
 
     @Getter
     @Setter
-    private Map<Class, EventHandlerI> eventRepository = new HashMap<>();
+    private Map<Class<? extends Event>, EventHandlerI> eventRepository = new HashMap<>();
 
     /**
      * 请求参数，返回参数对象映射
      */
     @Getter
-    private Map<Class, Class> responseRepository = new HashMap<>();
+    private Map<Class<?>, Class<?>> responseRepository = new HashMap<>();
     
-    public EventHandlerI getEventHandler(Class eventClass) {
+    public EventHandlerI getEventHandler(Class<? extends Event> eventClass) {
         EventHandlerI eventHandlerI = findHandler(eventClass);
         if (eventHandlerI == null) {
             throw new InfraException(eventClass + "is not registered in eventHub, please register first");

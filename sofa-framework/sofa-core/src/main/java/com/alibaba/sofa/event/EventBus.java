@@ -28,18 +28,19 @@ public class EventBus implements EventBusI {
     @Override
     @SuppressWarnings("unchecked")
     public Response fire(Event event) {
-        Response response = null;
+        Response response;
         try {
             response = eventHub.getEventHandler(event.getClass()).execute(event);
         }
         catch (Exception exception) {
-            response = handleException(event, response, exception);
+            response = handleException(event, exception);
         }
         return response;
     }
 
-    private Response handleException(Event cmd, Response response, Exception exception) {
+    private Response handleException(Event cmd, Exception exception) {
         Class responseClz = eventHub.getResponseRepository().get(cmd.getClass());
+        Response response;
         try {
             response = (Response) responseClz.newInstance();
         }

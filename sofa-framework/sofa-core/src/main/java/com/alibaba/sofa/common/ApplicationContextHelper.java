@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @date 2018-01-07 12:30 PM
  */
 @Component
-public class ApplicationContextHelper implements ApplicationContextAware{
+public class ApplicationContextHelper implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
@@ -21,7 +21,7 @@ public class ApplicationContextHelper implements ApplicationContextAware{
         ApplicationContextHelper.applicationContext = applicationContext;
     }
 
-    public static Object getBean(Class claz){
-        return ApplicationContextHelper.applicationContext.getBean(claz);
+    public static Object getBean(Class clazz){
+        return ApplicationContextHelper.applicationContext.getBean(clazz);
     }
 }

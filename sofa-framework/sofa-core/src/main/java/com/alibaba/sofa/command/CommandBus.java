@@ -12,28 +12,29 @@ import com.alibaba.sofa.exception.ErrorCodeI;
 import com.alibaba.sofa.exception.InfraException;
 import com.alibaba.sofa.logger.Logger;
 import com.alibaba.sofa.logger.LoggerFactory;
+
 /**
  * Just send Command to CommandBus, 
  * 
  * @author fulan.zjf 2017年10月24日 上午12:47:18
  */
 @Component
-public class CommandBus implements CommandBusI{
+public class CommandBus implements CommandBusI {
     
     Logger logger = LoggerFactory.getLogger(CommandBus.class);
     
     @Autowired
     private CommandHub commandHub;
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public Response send(Command cmd) {
         Response response = null;
         try {
             response = commandHub.getCommandInvocation(cmd.getClass()).invoke(cmd);
         }
         catch (Exception exception) {
-            response = handleException(cmd, response, exception);
+            response = handleException(cmd, exception);
         }
         finally {
             TenantContext.remove();//Clean up context
@@ -41,12 +42,14 @@ public class CommandBus implements CommandBusI{
         return response;
     }
 
-    private Response handleException(Command cmd, Response response, Exception exception) {
+    private Response handleException(Command cmd, Exception exception) {
         logger.error(exception.getMessage(), exception);
-        Class responseClz = commandHub.getResponseRepository().get(cmd.getClass());
+        Class<?> responseClz = commandHub.getResponseRepository().get(cmd.getClass());
+        Response response = null;
         try {
             response = (Response) responseClz.newInstance();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new InfraException(e.getMessage());
         }

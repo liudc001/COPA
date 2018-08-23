@@ -10,7 +10,7 @@ import java.util.List;
 public class CommandInvocation<R extends Response, C extends Command> {
     
     @Setter
-    private CommandExecutorI<R,C> commandExecutor;
+    private CommandExecutorI<R, C> commandExecutor;
     @Setter
     private Iterable<CommandInterceptorI> preInterceptors;
     @Setter
@@ -20,7 +20,8 @@ public class CommandInvocation<R extends Response, C extends Command> {
         
     }
     
-    public CommandInvocation(CommandExecutorI<R, C> commandExecutor, List<CommandInterceptorI> preInterceptors,
+    public CommandInvocation(CommandExecutorI<R, C> commandExecutor,
+                             List<CommandInterceptorI> preInterceptors,
                              List<CommandInterceptorI> postInterceptors){
         this.commandExecutor = commandExecutor;
         this.preInterceptors = preInterceptors;
