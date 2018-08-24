@@ -1,0 +1,1 @@
+mvn archetype:generate -DgroupId=com.hletong -DartifactId=demo -Dversion=1.0.0-SNAPSHOT -Dpackage=com.hletong.demo -DarchetypeArtifactId=sofa-framework-archetype -DarchetypeGroupId=com.alibaba.sofa -DarchetypeVersion=1.0.0-SNAPSHOT
